@@ -1,0 +1,8 @@
+
+docker build -t muzammilpeer/muzammilpeer-flask-app .
+docker push muzammilpeer/muzammilpeer-flask-app
+kubectl apply -f backend-deployment.yaml
+kubectl apply -f hpa.yaml
+
+kubectl get all
+kubectl get hpa
