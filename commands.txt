@@ -6,3 +6,11 @@ kubectl apply -f hpa.yaml
 
 kubectl get all
 kubectl get hpa
+
+
+docker build -t muzammilpeer/nginx-static
+docker push  muzammilpeer/nginx-static
+kubectl apply -f backend-deployment.yaml
+kubectl set image deployment/muzammilpeer-nginx-app muzammilpeer-nginx-app=muzammilpeer/muzammilpeer-nginx-app:latest --record
+#force impage pull
+kubectl rollout restart deployment/muzammilpeer-nginx-app

@@ -1,6 +1,14 @@
-# Description: Dockerfile for the Flask app
-FROM python:3.12-alpine
-ADD . /app
-WORKDIR /app
-RUN pip install --no-cache-dir -r requirements.txt
-CMD ["gunicorn", "-b", "0.0.0.0:8002", "app:app"]
+# Use the official Nginx image from Docker Hub
+FROM nginx:alpine
+
+# Copy static HTML files from your local directory to the Nginx HTML directory
+COPY ./static /usr/share/nginx/html
+
+# Copy custom Nginx configuration to the container
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80 to the outside world
+EXPOSE 8002
+
+# Start Nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
